@@ -26,6 +26,8 @@ def validate_entry(text):
         raise ValueError("entry must be non-empty with no surrounding whitespace")
     if "\n" in text or "\r" in text:
         raise ValueError("entry must be a single line")
+    if any(ord(ch) < 0x20 for ch in text):
+        raise ValueError("entry must not contain control characters")
     if len(text) > MAX_CHARS:
         raise ValueError("entry exceeds 200 characters")
     return text
